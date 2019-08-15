@@ -46,6 +46,8 @@ player1 = Player(player_name, room['outside'])
 # Player info
 current_player = player1.name
 current_position = player1.current_room
+
+valid_direction = ['n', 's', 'e', 'w', 'q']
 next_move = ""
 
 # Write a loop that:
@@ -57,14 +59,31 @@ while next_move != "q":
     next_move = input("What's your next move? \nEnter 'n', 's', 'e', or 'w' to move or Enter 'q' to quit: ")
 
     try:
-        if next_move == "n":
-            current_position = current_position.n_to
-        if next_move == 's':
-            current_position = current_position.s_to
-        if next_move == 'e':
-            current_position = current_position.e_to
-        if next_move == 'w':
-            current_position = current_position.w_to
+        if next_move not in valid_direction:
+            print("Invalid Input!")
+        elif next_move in valid_direction:
+            if next_move == "n":
+                if not current_position.n_to == None:
+                    current_position = current_position.n_to
+                else:
+                    print("Dead End.")
+            if next_move == 's':
+                if not current_position.s_to == None:
+                    current_position = current_position.s_to
+                else:
+                    print("Dead End.")
+            if next_move == 'e':
+                if not current_position.e_to == None:
+                    current_position = current_position.e_to
+                else:
+                    print("Dead End.")
+            if next_move == 'w':
+                if not current_position.w_to == None:
+                    current_position = current_position.w_to
+                else:
+                    print("Dead End.")
+        else: 
+            print("No room that way bro")
     except:
         print("Incorrect route. Please choose another.")
 
