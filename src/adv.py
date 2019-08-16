@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -8,11 +9,11 @@ room = {
                      "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", Item("Dagger", "This is the king of daggers")),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", Item("Sword", "This is the king of swords")),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air."""),
@@ -22,6 +23,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+# items = ["sword", "shield", "dagger"]
 
 # Link rooms together
 
@@ -40,22 +42,29 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 player_name = input("Please enter your name: ")
-player1 = Player(player_name, room['outside'])
-# print(player1)
+player = Player(player_name, room['outside'])
+print(player)
 
 # Player info
-current_player = player1.name
-current_position = player1.current_room
+current_player = player.name
+current_position = player.current_room
 
 valid_direction = ['n', 's', 'e', 'w', 'q']
 next_move = ""
 
+# sword1 = Sword("Sword", "This is the king of swords", "Legendary", 80)
+# room['overlook'].items.append(sword1)
+
 # Write a loop that:
 #
 while next_move != "q":
-    print(f"Hi Lee, {current_position}")
+    print(f"{current_position}")
     print(current_position.description)
-    
+    # if current_position == room['overlook']:
+    #     print(f"item in room: {sword1}")
+    if current_position.items is not None:
+        print(current_position.items)
+
     next_move = input("What's your next move? \nEnter 'n', 's', 'e', or 'w' to move or Enter 'q' to quit: ")
 
     try:
@@ -63,6 +72,8 @@ while next_move != "q":
             print("Invalid Input!")
         elif next_move in valid_direction:
             if next_move == "n":
+                # if current_position == room['overlook']:
+                #     print(f"items found {[items[0]]}")
                 if not current_position.n_to == None:
                     current_position = current_position.n_to
                 else:

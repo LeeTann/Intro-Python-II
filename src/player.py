@@ -8,5 +8,3 @@ class Player:
   
   def __str__(self):
     return f"Welcome! {self.name} {self.current_room}"
-
-    
